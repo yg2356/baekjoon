@@ -1,58 +1,58 @@
-#include <iostream>
-#include <cstring>
- 
-#define endl "\n"
-#define MAX 40
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<cmath>
+#include<queue>
+#include<stack>
+#include<cstring>
+#include<string>
+#include<functional>
+#include<list>
+#include<deque>  
+#include<map>
+#include<fstream>
+#include<time.h>
+#include <unordered_set>
+#include<set>
+#include<tuple>
+#include<climits>
+
 using namespace std;
- 
-int N, M;
-int DP[MAX][MAX];
- 
-void Initialize()
-{
-    memset(DP, 0, sizeof(DP));
-}
- 
-void Input()
-{
-    cin >> N >> M;
-}
- 
-void Solution()
-{
-    for (int i = 1; i <= M; i++) DP[1][i] = i;
-    for (int i = 2; i <= N; i++)
-    {
-        for (int j = i; j <= M; j++)
-        {
-            for (int k = j; k >= i; k--)
-            {
-                DP[i][j] = DP[i][j] + DP[i - 1][k - 1];
-            }
-        }
-    }
-    cout << DP[N][M] << endl;
-}
- 
-void Solve()
-{
-    int Tc; cin >> Tc;
-    for (int T = 1; T <= Tc; T++)
-    {
-        Initialize();
-        Input();
-        Solution();
-    }
-}
- 
-int main(void)
-{
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
- 
-    //freopen("Input.txt", "r", stdin);
-    Solve();
- 
-    return 0;
+
+int dp[31][31];
+int tc, west, east, ans;
+
+int main() {
+
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> tc;
+
+	while (tc--) {
+		memset(dp, 0, sizeof(dp));
+		cin >> west >> east;
+
+		for (int i = 1; i <= east;i++)dp[1][i] = i;
+
+		for (int i = 2; i <= west;i++) {
+
+			//dp[2][2] = dp[1][1]
+			//dp[2][3] = dp[1][2] + dp[1][1]
+
+			for (int j = i;j <= east;j++) {		
+
+				for (int k = j; k >= i;k--) {
+					dp[i][j] = dp[i][j] + dp[i - 1][k - 1];
+				}
+			}
+		}
+
+		cout << dp[west][east] << "\n";
+	}
+	
+	return 0;
+
 }
